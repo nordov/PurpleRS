@@ -7,12 +7,30 @@ import { useState } from 'react';
 function App() {
 
   let [list, setList] = useState([]);
+  let [toggleSort, setToggleSort] = useState(false);
+  
+  
+  function sortList(){
 
+    let sortedList = [...list];
+
+    sortedList.sort((a,b) => {
+      if(a.value.toLowerCase() < b.value.toLowerCase()) return -1;
+      if(a.value.toLowerCase() > b.value.toLowerCase()) return 1;
+      return 0;
+    });
+
+    return sortedList;
+  }
+  
   function addToList(newItem) {
 
-      setList([...list, newItem]);
-      console.log(list);
+    setList([...list, newItem]);
 
+  }
+
+  function clearList() {
+    setList([]);
   }
 
   return (
@@ -22,7 +40,23 @@ function App() {
         <h1>Purple Rock Scissors Code Test</h1>
       </header>
       <Input addToList={addToList} />
-      <List list={list}/>
+      <div className="sort-controls">
+          <button 
+              type="button"
+              onClick={() => setToggleSort(!toggleSort)}
+          >
+              { !toggleSort ? "Sort Alphabetically" : "Sort by entry"}
+          </button>
+          
+          
+          <button 
+              type="button"
+              onClick={clearList}
+          >
+              Clear List
+          </button>
+      </div>
+      <List list={ !toggleSort ? list : sortList(list) } clearList={clearList}/>
     </div>
   );
 }
