@@ -1,6 +1,14 @@
 import './List.css';
 
-function List() {
+function List({list}) {
+
+    let renderedList = "";
+
+    function renerList() {
+        list.forEach(item => {
+
+        });
+    }
 
     return (
         <div className="list">
@@ -10,13 +18,9 @@ function List() {
                 <button type="button">Clear List</button>
             </div>
             <div className="list-items">
-                <li>Lorem Ipsum</li>
-                <li>Lorem Ipsum</li>
-                <li>Lorem Ipsum</li>
-                <li>Lorem Ipsum</li>
-                <li>Lorem Ipsum</li>
-                <li>Lorem Ipsum</li>
-                <li>Lorem Ipsum</li>
+                {list.map((item, idx) => {
+                    return <li key={idx}>{item.value}</li>;
+                })}
             </div>
         </div>
     );
