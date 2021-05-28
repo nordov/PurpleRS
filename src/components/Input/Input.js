@@ -4,15 +4,22 @@ import { useState } from 'react';
 
 function Input({ addToList }){
     
-    let [newInput, setNewInput] = useState({ value: ''});
+    let [newInput, setNewInput] = useState({ value: '', timeStamp: ''});
 
     function addItem() {
+
+        let itemTimeStamp = new Date();
+        
+        itemTimeStamp.getTime();
+        
+        newInput.timeStamp = itemTimeStamp.toLocaleTimeString('en-US');
+
         addToList(newInput);
         setNewInput({value: ''});
     }
 
     return (
-        <div className="input">
+        <div className="item-input">
             <input 
                 type="text" 
                 name="entry" 
@@ -22,12 +29,12 @@ function Input({ addToList }){
                 placeholder="Enter String Here">
             </input>
 
-            <button 
-                type="button"
+            <input 
+                type="submit"
+                className="add-item"
                 onClick={addItem}
-            >
-                Add to List
-            </button>
+                value="+">
+            </input>
         </div>
     );
 }

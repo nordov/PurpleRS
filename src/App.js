@@ -1,4 +1,4 @@
-// import logo from './logo.svg';
+import logo from './logo.svg';
 import './App.css';
 import Input from './components/Input/Input';
 import List from './components/List/List';
@@ -8,7 +8,8 @@ function App() {
 
   let [list, setList] = useState([]);
   let [toggleSort, setToggleSort] = useState(false);
-  
+  let [toggleTimeStamp, setToggleTimeStamp] = useState(true);
+
   
   function sortList(){
 
@@ -34,20 +35,26 @@ function App() {
   }
 
   return (
-    <div className="App" style={{border: 'solid 1px red'}}>
+    <div className="App" >
       <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <h1>Purple Rock Scissors Code Test</h1>
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1>React Code Test</h1>
       </header>
       <Input addToList={addToList} />
-      <div className="sort-controls">
+      <div className="list-controls">
           <button 
               type="button"
               onClick={() => setToggleSort(!toggleSort)}
           >
               { !toggleSort ? "Sort Alphabetically" : "Sort by entry"}
           </button>
-          
+
+          <button 
+              type="button"
+              onClick={() => setToggleTimeStamp(!toggleTimeStamp)}
+          >
+              { toggleTimeStamp ? "Hide Times" : "Show Times"}
+          </button>          
           
           <button 
               type="button"
@@ -56,7 +63,10 @@ function App() {
               Clear List
           </button>
       </div>
-      <List list={ !toggleSort ? list : sortList(list) } clearList={clearList}/>
+      <List 
+        list={ !toggleSort ? list : sortList(list) } clearList={clearList}
+        hideTimeStamp={toggleTimeStamp}  
+      />
     </div>
   );
 }
